@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="ANTIGRAVITY v3.0 — AI-Powered Trading Intelligence & Execution System with multi-agent analysis">
+  <title>ANTIGRAVITY v3.0 — AI Trading Terminal</title>
+  <link rel="stylesheet" href="/static/styles.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+</head>
+<body>
+
+  <!-- ═══ Header ═══ -->
+  <header class="header">
+    <div class="header-inner">
+      <a class="logo" href="/">
+        <div class="logo-icon">⚡</div>
+        <span class="logo-text">ANTIGRAVITY</span>
+        <span class="logo-version">v3.0</span>
+      </a>
+      <div class="header-status">
+        <div class="status-dot"></div>
+        <span class="status-text" id="status-text">LIVE</span>
+        <span class="status-text" id="clock"></span>
+      </div>
+    </div>
+  </header>
+
+  <!-- ═══ Navigation Tabs ═══ -->
+  <nav class="nav-tabs" id="nav-tabs">
+    <button class="nav-tab active" data-tab="command" id="tab-command">
+      <span class="tab-icon">🎯</span> Command Center
+    </button>
+    <button class="nav-tab" data-tab="trading" id="tab-trading">
+      <span class="tab-icon">📊</span> Live Trading
+    </button>
+    <button class="nav-tab" data-tab="scanner" id="tab-scanner">
+      <span class="tab-icon">🔍</span> Market Scanner
+    </button>
+    <button class="nav-tab" data-tab="intelligence" id="tab-intelligence">
+      <span class="tab-icon">🧠</span> Intelligence
+    </button>
+    <button class="nav-tab" data-tab="platforms" id="tab-platforms">
+      <span class="tab-icon">🏦</span> Platforms
+    </button>
+    <button class="nav-tab" data-tab="signals" id="tab-signals">
+      <span class="tab-icon">⚡</span> Signals
+    </button>
+    <button class="nav-tab" data-tab="portfolio" id="tab-portfolio">
+      <span class="tab-icon">💼</span> Portfolio
+    </button>
+    <button class="nav-tab" data-tab="performance" id="tab-performance">
+      <span class="tab-icon">📈</span> Performance
+    </button>
+    <button class="nav-tab" data-tab="autobot" id="tab-autobot">
+      <span class="tab-icon">🤖</span> Autobot
+    </button>
+  </nav>
+
+  <!-- ═══ Main Content ═══ -->
+  <main class="main-content">
+
+    <!-- ─── Tab: Command Center ─── -->
+    <div class="tab-panel active" id="panel-command">
+      <!-- Search -->
+      <div class="search-container">
+        <input type="text" class="search-input" id="ticker-input" placeholder="Enter ticker symbol (e.g. AAPL, BTC-USD, NVDA)..." autocomplete="off">
+        <button class="btn btn-primary" id="analyze-btn" onclick="analyzeStock()">
+          ⚡ Analyze
+        </button>
+      </div>
+
+      <!-- Analysis Result -->
+      <div id="analysis-result" style="display:none;"></div>
+
+      <!-- Dashboard Grid -->
+      <div class="grid-sidebar">
+        <!-- Left: Top 25 -->
+        <div class="card">
+          <div class="card-header">
+            <span class="card-title">🏆 Top 25 — AI Ranked Assets</span>
+            <button class="btn btn-ghost text-sm" onclick="refreshTop25()">↻ Refresh</button>
+          </div>
+          <div id="top25-container">
+            <div class="loading"><div class="spinner"></div><span class="loading-text">Scanning markets...</span></div>
+          </div>
+        </div>
+
+        <!-- Right: News + Macro -->
+        <div class="flex flex-col gap-4">
+          <!-- Macro Regime -->
+          <div class="card">
+            <div class="card-header">
+              <span class="card-title">🌍 Macro Regime</span>
+            </div>
+            <div id="macro-container">
+              <div class="loading"><div class="spinner"></div><span class="loading-text">Analyzing macro...</span></div>
+            </div>
+          </div>
+
+          <!-- News Feed -->
+          <div class="card">
+            <div class="card-header">
+              <span class="card-title">📰 Global News</span>
+            </div>
+            <div id="news-container">
+              <div class="loading"><div class="spinner"></div><span class="loading-text">Fetching news...</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ─── Tab: Live Trading ─── -->
+    <div class="tab-panel" id="panel-trading">
+      <div class="search-container">
+        <input type="text" class="search-input" id="trading-ticker" placeholder="Enter ticker for live analysis..." autocomplete="off">
+        <button class="btn btn-primary" onclick="liveAnalyze()">📊 Live Analysis</button>
+      </div>
+      <div id="live-result">
+        <div class="card">
+          <p style="color: var(--text-muted); text-align: center; padding: 40px;">Enter a ticker symbol above to run full AI analysis with entry/exit levels, risk management, and prediction.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ─── Tab: Market Scanner ─── -->
+    <div class="tab-panel" id="panel-scanner">
+      <div class="card">
+        <div class="card-header">
+          <span class="card-title">🔍 Market Scanner — All Categories</span>
+          <div class="flex gap-4">
+            <button class="btn btn-ghost text-sm" onclick="scanCategory('stocks')">Stocks</button>
+            <button class="btn btn-ghost text-sm" onclick="scanCategory('crypto')">Crypto</button>
+            <button class="btn btn-ghost text-sm" onclick="scanCategory('forex')">Forex</button>
+            <button class="btn btn-ghost text-sm" onclick="scanCategory('commodities')">Commodities</button>
+            <button class="btn btn-ghost text-sm" onclick="scanCategory('etfs')">ETFs</button>
+          </div>
+        </div>
+        <div id="scanner-container">
+          <p style="color: var(--text-muted); text-align: center; padding: 40px;">Select a category to scan</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ─── Tab: Intelligence ─── -->
+    <div class="tab-panel" id="panel-intelligence">
+      <div class="search-container">
+        <input type="text" class="search-input" id="news-ticker" placeholder="Search news for any ticker..." autocomplete="off">
+        <button class="btn btn-primary" onclick="searchNews()">🔎 Search</button>
+      </div>
+      <div class="grid-2">
+        <div class="card">
+          <div class="card-header">
+            <span class="card-title">📰 Latest News</span>
+          </div>
+          <div id="intel-news">
+            <div class="loading"><div class="spinner"></div><span class="loading-text">Loading...</span></div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header">
+            <span class="card-title">🎯 Sentiment Analysis</span>
+          </div>
+          <div id="intel-sentiment">
+            <div class="loading"><div class="spinner"></div><span class="loading-text">Analyzing...</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ─── Tab: Platforms ─── -->
+    <div class="tab-panel" id="panel-platforms">
+      <div class="card">
+        <div class="card-header">
+          <span class="card-title">🏦 Top Trading Platforms</span>
+        </div>
+        <div id="platforms-container">
+          <div class="loading"><div class="spinner"></div><span class="loading-text">Loading platforms...</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ─── Tab: Signals ─── -->
+    <div class="tab-panel" id="panel-signals">
+      <div class="card">
+        <div class="card-header">
+          <span class="card-title">⚡ Active Trade Signals</span>
+          <button class="btn btn-ghost text-sm" onclick="loadSignals()">↻ Refresh</button>
+        </div>
+        <div id="signals-container">
+          <div class="loading"><div class="spinner"></div><span class="loading-text">Loading signals...</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ─── Tab: Portfolio ─── -->
+    <div class="tab-panel" id="panel-portfolio">
+      <div class="grid-4 mb-6" id="portfolio-stats"></div>
+      <div class="card">
+        <div class="card-header">
+          <span class="card-title">💼 Open Positions</span>
+          <button class="btn btn-ghost text-sm" onclick="loadPortfolio()">↻ Refresh</button>
+        </div>
+        <div id="portfolio-positions">
+          <div class="loading"><div class="spinner"></div><span class="loading-text">Loading portfolio...</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ─── Tab: Performance ─── -->
+    <div class="tab-panel" id="panel-performance">
+      <div class="grid-4 mb-6" id="perf-stats"></div>
+      <div class="card">
+        <div class="card-header">
+          <span class="card-title">📈 Recent Trades</span>
+        </div>
+        <div id="perf-trades">
+          <div class="loading"><div class="spinner"></div><span class="loading-text">Loading performance...</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ─── Tab: Autobot ─── -->
+    <div class="tab-panel" id="panel-autobot">
+      <div class="card" style="margin-bottom: 2rem;">
+        <div class="card-header">
+          <span class="card-title">🤖 Autobot eToro Executor</span>
+          <div class="flex gap-4">
+            <button class="btn btn-primary" onclick="connectEtoro()">🔌 Connect eToro (Sim)</button>
+            <button class="btn btn-primary" onclick="executeBotTrade()" style="background: var(--profit-color);">🚀 Execute AI Trade</button>
+          </div>
+        </div>
+        <div id="bot-etoro-status" class="mt-4" style="padding: 15px; background: rgba(255,255,255,0.05); border-radius: 8px; font-family: monospace;">
+          eToro Network: Disconnected
+        </div>
+        <div id="bot-execution-log" class="mt-4" style="display: none; padding: 15px; background: rgba(0,0,0,0.3); border-radius: 8px; font-family: monospace;">
+        </div>
+      </div>
+      
+      <div class="card">
+        <div class="card-header">
+          <span class="card-title">🏦 Top 100 Trading Platforms Review</span>
+          <button class="btn btn-ghost text-sm" onclick="loadBotDashboard()">↻ Reload</button>
+        </div>
+        <div id="bot-platforms-container">
+          <div class="loading"><div class="spinner"></div><span class="loading-text">Loading top 100 platforms...</span></div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>

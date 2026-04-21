@@ -1,0 +1,15 @@
+__pycache__/
+*.pyc
+*.pyo
+.env
+*.egg-info/
+dist/
+build/
+.venv/
+venv/
+env/
+backend/memory/*.json
+backend/models/*.pkl
+*.log
+.DS_Store
+Thumbs.db

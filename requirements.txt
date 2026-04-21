@@ -1,0 +1,15 @@
+# ANTIGRAVITY v3.0 — Dependencies
+fastapi>=0.100.0
+uvicorn[standard]>=0.25.0
+yfinance>=0.2.30
+pandas>=2.0.0
+numpy>=1.24.0
+scipy>=1.10.0
+scikit-learn>=1.3.0
+vaderSentiment>=3.3.2
+feedparser>=6.0.10
+requests>=2.28.0
+aiohttp>=3.9.0
+python-dotenv>=1.0.0
+pydantic>=2.0.0
+ta>=0.11.0

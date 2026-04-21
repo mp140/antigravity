@@ -1,0 +1,12 @@
+{
+  "max_risk_per_trade_pct": 2,
+  "max_daily_loss_pct": 5,
+  "min_confidence_threshold": 75,
+  "max_open_positions": 5,
+  "kelly_fraction": 0.5,
+  "circuit_breaker_vix": 35,
+  "trailing_stop_pct": 3,
+  "max_drawdown_pct": 10,
+  "position_size_method": "kelly",
+  "risk_free_rate": 0.05
+}
