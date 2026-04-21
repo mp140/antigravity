@@ -1,0 +1,10 @@
+services:
+  - type: web
+    name: antigravity-bot
+    env: docker
+    plan: free
+    region: oregon # or any region you prefer
+    healthCheckPath: /
+    envVars:
+      - key: PORT
+        value: 10000
